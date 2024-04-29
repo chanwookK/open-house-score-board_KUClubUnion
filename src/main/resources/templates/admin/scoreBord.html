@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Board</title>
+</head>
+<body>
+<h1>Score Board</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Club Name</th>
+        <th>Score</th>
+        <th>Visitors</th>
+        <th>ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 클럽 정보 출력 -->
+    <tr>
+        <td th:text="${clubs.name}">Club Name</td>
+        <td th:text="${clubs.score}">0</td>
+        <td th:text="${clubs.visitors}">0</td>
+        <td th:text="${clubs.id}">0</td>
+        <td>
+            <!-- 점수 올리기/내리기 버튼 -->
+            <form th:action="@{'/admin/score-board/score-up/' + ${clubs.id}}" method="post">
+                <button type="submit">Score Up</button>
+            </form>
+            <form th:action="@{'/admin/score-board/score-down/' + ${clubs.id}}" method="post">
+                <button type="submit">Score Down</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

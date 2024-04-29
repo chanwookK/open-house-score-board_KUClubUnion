@@ -1,0 +1,17 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Index</title>
+</head>
+<body>
+<h1>Clubs List</h1>
+<ul>
+    <!-- Thymeleaf의 반복문을 사용하여 clubs를 순회하며 각 club의 name을 출력 -->
+    <li th:each="club : ${clubs}" th:text="${club.name}"></li>
+</ul>
+</body>
+</html>
