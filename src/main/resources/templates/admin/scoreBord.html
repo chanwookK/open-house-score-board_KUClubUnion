@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/adminApp.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <title>Score Board</title>
 </head>
 <body>
@@ -27,14 +31,17 @@
         <td>
             <!-- 점수 올리기/내리기 버튼 -->
             <form th:action="@{'/admin/score-board/score-up/' + ${clubs.id}}" method="post">
-                <button type="submit">Score Up</button>
+                <button onclick = "sendBroadCast()" class="send" type="submit">Score Up</button>
             </form>
             <form th:action="@{'/admin/score-board/score-down/' + ${clubs.id}}" method="post">
-                <button type="submit">Score Down</button>
+                <button onclick = "sendBroadCast()" class="send" type="submit">Score Down</button>
             </form>
         </td>
     </tr>
     </tbody>
+
+    <h1>WebSocket 연결 상태 확인</h1>
+    <p id="connection-status">연결 상태: 연결 시도 중...</p>
 </table>
 </body>
 </html>

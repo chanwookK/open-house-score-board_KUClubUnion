@@ -18,7 +18,7 @@ public class WebSocketBroadCastController {
     private final ClubRepository repos;
 
     @MessageMapping("/broad-cast")
-    @SendTo("/provide")
+    @SendTo("/topic/")
     public List<Club> broadCast() {
 
 

@@ -3,6 +3,7 @@ package openhouse.score.controller;
 
 import lombok.RequiredArgsConstructor;
 import openhouse.score.domain.Club;
+import openhouse.score.dto.LoginInfoDto;
 import openhouse.score.repository.club.ClubRepository;
 import openhouse.score.service.LoginService;
 import openhouse.score.service.ScoreHandleService;
@@ -21,6 +22,10 @@ public class AdminController {
     private final ClubRepository repos;
 
 
+    /**
+     *
+     * @return: 로그인 폼을 return
+     */
     @GetMapping("/login")
     public String loginForm(){
 
@@ -28,10 +33,16 @@ public class AdminController {
     }
 
 
+    /**
+     *
+     * @param loginInfo: form data로 전송 받은 로그인 이름과 비밀번호를 가지는 DTO,
+     * @param redirectAttributes: redirect 할 url로 보내는 model
+     * @return: 로그인 실패 시 login 창으로 이동. 성공 시 score board 로 이동.
+     */
     @PostMapping("/login")
-    public String login(@RequestParam("name") String name, @RequestParam("password") String password, RedirectAttributes redirectAttributes){
+    public String login(@ModelAttribute LoginInfoDto loginInfo, RedirectAttributes redirectAttributes){
 
-        Club findClub = loginService.verifyName(name, password);
+        Club findClub = loginService.verifyName(loginInfo.getName(), loginInfo.getPassword());
 
         if(findClub == null){
             redirectAttributes.addAttribute("status", true);
@@ -39,7 +50,7 @@ public class AdminController {
             return "redirect:/admin/login";
         }
         else{
-            findClub = loginService.verifyPassword(password, findClub);
+            findClub = loginService.verifyPassword(loginInfo.getPassword(), findClub);
 
             if(findClub == null){
                 redirectAttributes.addAttribute("status", true);

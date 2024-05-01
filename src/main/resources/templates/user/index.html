@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/userApp.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <title>User Index</title>
 </head>
 <body>
@@ -13,5 +17,9 @@
     <!-- Thymeleaf의 반복문을 사용하여 clubs를 순회하며 각 club의 name을 출력 -->
     <li th:each="club : ${clubs}" th:text="${club.name}"></li>
 </ul>
+
+<h1>WebSocket 연결 상태 확인</h1>
+<p id="connection-status">연결 상태: 연결 시도 중...</p>
+
 </body>
 </html>
