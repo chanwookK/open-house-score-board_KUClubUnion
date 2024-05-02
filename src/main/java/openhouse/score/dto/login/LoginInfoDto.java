@@ -1,4 +1,4 @@
-package openhouse.score.dto;
+package openhouse.score.dto.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

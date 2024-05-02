@@ -5,21 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+            padding: 15px;
+            margin: auto;
+        }
+        .form-signin {
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .form-signin h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
-<h1>Login Form</h1>
-<!-- 로그인 실패 메시지가 전달된 경우에만 출력 -->
-<p th:if="${param.status}">Error: <span th:text="${param.info}"></span></p>
-<form method="post" action="/admin/login">
-    <div>
-        <label for="name">Club Name:</label>
-        <input type="text" id="name" name="name">
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-    </div>
-    <button type="submit">Login</button>
-</form>
+<div class="container">
+    <form class="form-signin" method="post" action="/admin/login">
+        <h1 class="h3 mb-3 font-weight-normal">Login Form</h1>
+        <!-- 로그인 실패 메시지가 전달된 경우에만 출력 -->
+        <div th:if="${param.isFail}" class="alert alert-danger" role="alert">
+            Error: <span th:text="${param.errorMessage}"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label for="name">Club Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your club name" required autofocus>
+        </div>
+        <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </form>
+</div>
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

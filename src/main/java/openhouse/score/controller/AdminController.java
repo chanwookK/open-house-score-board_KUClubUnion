@@ -2,11 +2,10 @@ package openhouse.score.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import openhouse.score.domain.Club;
-import openhouse.score.dto.LoginInfoDto;
-import openhouse.score.repository.club.ClubRepository;
-import openhouse.score.service.LoginService;
-import openhouse.score.service.ScoreHandleService;
+import openhouse.score.dto.club.ClubDto;
+import openhouse.score.dto.login.LoginInfoDto;
+import openhouse.score.service.login.LoginService;
+import openhouse.score.service.score.ScoreHandleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +18,13 @@ public class AdminController {
 
     private final LoginService loginService;
     private final ScoreHandleService scoreHandleService;
-    private final ClubRepository repos;
-
 
     /**
      *
      * @return: 로그인 폼을 return
      */
     @GetMapping("/login")
-    public String loginForm(){
+    public String showLoginForm(){
 
         return "admin/loginForm";
     }
@@ -40,54 +37,59 @@ public class AdminController {
      * @return: 로그인 실패 시 login 창으로 이동. 성공 시 score board 로 이동.
      */
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginInfoDto loginInfo, RedirectAttributes redirectAttributes){
+    public String doLogin(@ModelAttribute LoginInfoDto loginInfo, RedirectAttributes redirectAttributes){
 
-        Club findClub = loginService.verifyName(loginInfo.getName(), loginInfo.getPassword());
+        ClubDto verifiedNameClub = loginService.verifyName(loginInfo.getName());
 
-        if(findClub == null){
-            redirectAttributes.addAttribute("status", true);
-            redirectAttributes.addAttribute("info","동아리명이 잘못 되었습니다." );
-            return "redirect:/admin/login";
-        }
-        else{
-            findClub = loginService.verifyPassword(loginInfo.getPassword(), findClub);
-
-            if(findClub == null){
-                redirectAttributes.addAttribute("status", true);
-                redirectAttributes.addAttribute("info","비밀번호가 잘못 되었습니다." );
-                return "redirect:/admin/login";
-            }
+        if(verifiedNameClub == null){
+            return redirectLoginWithError("동아리명이 잘못 되었습니다.", redirectAttributes);
         }
 
-        redirectAttributes.addAttribute("clubId", findClub.getId());
-        redirectAttributes.addFlashAttribute("clubss", findClub);
+        ClubDto verifiedClub = loginService.verifyPassword(loginInfo.getPassword(), verifiedNameClub);
 
-        return "redirect:/admin/score-board/"+ findClub.getId();
+        if(verifiedClub == null){
+            return redirectLoginWithError("비밀번호가 잘 못 되었습니다.", redirectAttributes);
+        }
+
+        redirectAttributes.addFlashAttribute("clubId", verifiedClub.getId());
+
+        return "redirect:/admin/score-board";
 
     }
 
-    @GetMapping("/score-board/{clubId}")
-    public String scoreBoard(@PathVariable Long clubId, Model model){
-        model.addAttribute("clubs", repos.findById(clubId));
-        //model.addAttribute("clubs",(Club)model.getAttribute("clubss"));
+    public String redirectLoginWithError(String errorInfo, RedirectAttributes redirectAttributes){
 
-        return "admin/scoreBord";
+        redirectAttributes.addAttribute("isFail", true);
+        redirectAttributes.addAttribute("errorMessage", errorInfo);
+
+        return "redirect:/admin/login";
+    }
+
+    @GetMapping("/score-board")
+    public String showScoreBoard(Model model){
+
+        Long clubId = (Long)model.getAttribute("clubId");
+        model.addAttribute("club", scoreHandleService.getClubById(clubId));
+
+        return "/admin/scoreBoard";
     }
 
     @PostMapping("/score-board/score-up/{clubId}")
     public String scoreUp(@PathVariable Long clubId, RedirectAttributes redirectAttributes){
 
-        Club findClub = scoreHandleService.scoreUp(clubId);
+        scoreHandleService.scoreUp(clubId);
+        redirectAttributes.addFlashAttribute("clubId", clubId);
 
-        return "redirect:/admin/score-board/{clubId}";
+        return "redirect:/admin/score-board";
     }
 
     @PostMapping("/score-board/score-down/{clubId}")
     public String scoreDown(@PathVariable Long clubId, RedirectAttributes redirectAttributes){
 
-        Club findClub = scoreHandleService.scoreDown(clubId);
+        scoreHandleService.scoreDown(clubId);
+        redirectAttributes.addFlashAttribute("clubId", clubId);
 
-        return "redirect:/admin/score-board/{clubId}";
+        return "redirect:/admin/score-board";
     }
 
 

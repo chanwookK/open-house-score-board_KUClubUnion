@@ -1,19 +1,21 @@
 package openhouse.score.repository.club;
 
 import lombok.extern.slf4j.Slf4j;
-import openhouse.score.domain.Club;
+import openhouse.score.domain.club.Club;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-@Repository
+
 @Slf4j
 public class ClubMemoryRepository implements ClubRepository {
 
     private final static Map<Long, Club> store = new ConcurrentHashMap<>();
+
     private Long sequence = 0L;
+
     @Override
     public Club findById(Long id) {
 

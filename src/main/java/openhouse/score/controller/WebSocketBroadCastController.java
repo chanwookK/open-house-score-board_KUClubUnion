@@ -2,26 +2,26 @@ package openhouse.score.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import openhouse.score.domain.Club;
+import lombok.extern.slf4j.Slf4j;
+import openhouse.score.domain.club.Club;
 import openhouse.score.repository.club.ClubRepository;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class WebSocketBroadCastController {
-
-    private final ClubRepository repos;
 
     @MessageMapping("/broad-cast")
     @SendTo("/topic/")
-    public List<Club> broadCast() {
+    public boolean broadCast() {
 
+        log.info("broad-cast");
 
-        return repos.findAll();
+        return true;
     }
 }

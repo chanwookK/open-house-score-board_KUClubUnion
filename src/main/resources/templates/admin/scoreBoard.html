@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Board</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5 mb-4">Score Board</h1>
+    <!-- 클럽 정보 출력 -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${club.name}">Club Name</h5>
+                    <p class="card-text">
+                        <span>Score: </span><span th:text="${club.score}">0</span><br>
+                        <span>Visitors: </span><span th:text="${club.visitors}">0</span><br>
+                        <span>ID: </span><span th:text="${club.id}">0</span>
+                    </p>
+                    <!-- 점수 올리기/내리기 버튼 -->
+                    <form th:action="@{'/admin/score-board/score-up/' + ${club.id}}" method="post">
+                        <button onclick="sendBroadCast()" class="btn btn-success" type="submit">Score Up</button>
+                    </form>
+                    <form th:action="@{'/admin/score-board/score-down/' + ${club.id}}" method="post">
+                        <button onclick="sendBroadCast()" class="btn btn-danger" type="submit">Score Down</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- WebSocket 연결 상태 확인 -->
+<div class="container mt-5">
+    <h1>WebSocket 연결 상태 확인</h1>
+    <p id="connection-status">연결 상태: 연결 시도 중...</p>
+</div>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/adminApp.js"></script>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</body>
+</html>

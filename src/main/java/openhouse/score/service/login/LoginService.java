@@ -1,9 +1,9 @@
-package openhouse.score.service;
+package openhouse.score.service.login;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import openhouse.score.domain.Club;
+import openhouse.score.dto.club.ClubDto;
 import openhouse.score.repository.club.ClubRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,25 +13,29 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     //repository
-    private final ClubRepository rep;
+    private final ClubRepository clubRepository;
+
 
 
     /**
      *
      * @param name : 로그인 하려는 동아리 명
-     * @param password : 로그인 하려는 동아리의 동아리방 호수
      * @return : 이름을 통해 찾은 Club객체를 반환. 찾지 못하면 null 반환
      * @comment : 이름과 비밀번호 입력 오류를 나누기 위해 메소드 분리
      */
-    public Club verifyName(String name, String password){
+    public ClubDto verifyName(String name){
 
-        Club byName = rep.findByName(name);
+        ClubDto clubSearchedByName = ClubDto.fromClub(clubRepository.findByName(name));
 
-        if(byName == null)
+        if(clubSearchedByName == null) {
+
+            log.info("failed verify name = {}", name);
+
             return null;
+        }
 
         log.info("success verify name = {}", name);
-        return byName;
+        return clubSearchedByName;
 
     }
 
@@ -41,7 +45,7 @@ public class LoginService {
      * @param byName : verifyName 메소드에서 찾은 Club 객체
      * @return : 비밀번호가 일치하면 Club객체를 반환, 아니라면 null 반환
      */
-    public Club verifyPassword(String password, Club byName) {
+    public ClubDto verifyPassword(String password, ClubDto byName) {
 
         if(byName.getPassword().equals(password)) {
 
@@ -51,7 +55,7 @@ public class LoginService {
         }
         else {
 
-            log.info("password error : desire={}, input={}", byName.getPassword(),password);
+            log.info("password error : desire={}, input={}", byName.getPassword(), password);
             return null;
         }
     }

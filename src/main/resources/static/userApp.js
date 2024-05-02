@@ -36,7 +36,7 @@ function connect() {
 
         // Stomp 를 이용하여 /topic/ 주소 구독.
         // /topic/ 으로 메시지 브로커가 정보 전달 시 아래 함수 실행.
-        stompClient.subscribe('/topic/', function (greeting) {
+        stompClient.subscribe('/topic/', function (request) {
 
             // WebSocketBroadCast Controller의 broadCast의 반환값을 인자로 받음.
             // topic으로 메시지가 왔을때의 행동을 작성
