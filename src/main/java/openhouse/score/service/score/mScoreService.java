@@ -16,38 +16,55 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ScoreHandleService {
+public class mScoreService {
 
     private final ClubRepository rep;
 
     @Transactional
     @CacheEvict(value = {"myCache","myCache2"}, allEntries = true)
-    public boolean successGame(Long clubId, String visitClubName){
+    public boolean scoreUp(Long clubId){
 
         Club byId = rep.findById(clubId);
         byId.plus();
 
-        Club byName = rep.findByName(visitClubName);
-        byName.visitorUp();
-
-        log.info("-admin name :{}: adjust(success game)- target club = {} , score = {}  admin club = {} , visitor = {}", visitClubName, byId.getName(), byId.getScore(), visitClubName, byName.getVisitors());
+        log.info("-master adjust(score up)- target club = {} , score = {}", byId.getName(), byId.getScore());
         return true;
     }
 
 
     @Transactional
     @CacheEvict(value = {"myCache","myCache2"}, allEntries = true)
-    public boolean failGame(Long clubId, String visitClubName){
+    public boolean scoreDown(Long clubId){
 
 
         Club byId = rep.findById(clubId);
-       // byId.minus();
+        byId.minus();
+
+        log.info("-master adjust(score down)- target club = {} , score = {}", byId.getName(), byId.getScore());
+        return true;
+    }
+
+    @Transactional
+    @CacheEvict(value = {"myCache","myCache2"}, allEntries = true)
+    public boolean visitorUp(Long clubId){
+
+        Club byId = rep.findById(clubId);
+        byId.visitorUp();
+
+        log.info("-master adjust(visitorUp)- target club = {} , visitor = {}", byId.getName(), byId.getVisitors());
+        return true;
+    }
 
 
-        Club byName = rep.findByName(visitClubName);
-        byName.visitorUp();
+    @Transactional
+    @CacheEvict(value = {"myCache","myCache2"}, allEntries = true)
+    public boolean visitorDown(Long clubId){
 
-        log.info("-admin name :{}: adjust(fail game)- target club = {} , score = {}  admin club = {} , visitor = {}", visitClubName, byId.getName(), byId.getScore(), visitClubName, byName.getVisitors());
+
+        Club byId = rep.findById(clubId);
+        byId.visitorDown();
+
+        log.info("-master adjust(score up)- target club = {} , visitor = {}", byId.getName(), byId.getVisitors());
         return true;
     }
 
@@ -62,5 +79,7 @@ public class ScoreHandleService {
 
         return allClub;
     }
+
+
 
 }

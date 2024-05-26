@@ -1,0 +1,162 @@
+<html><head>
+  <link rel="stylesheet" th:href="@{/rankingStyle.css}"/>
+  <script src="/userApp.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <div style="display: none;"></div></head>
+<body class="page-leaderboard">
+<header class="header__sidenav slideout-menu" id="nav--mobile">
+  <div class="header__sidenav--logo">
+    <a id="ga-7f26f8" title="Udacity" class="logo-link" href="index.html">
+      <div class="logo-wordmark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177 31" alt="Udacity">
+          <g fill="none" fill-rule="evenodd">
+            <path id="wordmark" fill="#2E3D49" d="M58 17.6c0 2.6-2.1 4.5-5 4.5s-5-1.9-5-4.5V8h-2v9.7c0 3.4 2.9 6.3 7 6.3s7-3 7-6.3V8h-2v9.6zM74.4 8H69v16h5.4c4.5 0 7.6-3.1 7.6-8 0-4.8-3.1-8-7.6-8zm-.2 14H71V10h3.2c3.4 0 5.8 2.3 5.8 6 0 4-2.5 5.9-5.8 6zm43.8.3c-3.6 0-6-2.7-6-6.3 0-3.6 2.5-6.2 6-6.2 2.8 0 4.5 1.6 4.5 1.6l.8-1.4s-1.8-1.9-5.5-1.9c-4.8 0-7.8 3.6-7.8 7.9 0 4.4 3.1 8.1 8 8.1 3.8 0 5.7-2.6 5.7-2.6l-1.1-1.2c-.1-.1-1.6 2-4.6 2zM133 8h2v16h-2zm11 2h5v14h2V10h5V8h-12zm30.8-2l-4.8 7.3-4.9-7.3H163l6 8.9V24h2v-7.1l5.9-8.9zM94.9 8l-6.2 16h2l1.7-4.6 6.5-1.4 2.2 6h2L97 8h-2.1zM93 17.5l3-7.4h.1l2.5 6.3-5.6 1.1z"></path>
+            <path id="mark" fill="#02B3E4" d="M29 .1l-9 4.7v14.9c0 .6 0 1.3-.2 1.9-.1.6-.3 1.2-.5 1.7-.1.1-.1.3-.2.4-.3 0-2.5-.7-3.5-1.4-.4-.3-.8-.6-1.2-1-.4-.4-.7-.8-1-1.2-.3-.4-.6-.9-.8-1.4-.2-.5-.4-1-.5-1.6-.1-.5-.1-1.1-.1-1.6V1.2L10 0 0 5.9v13.7C0 25.9 5.1 31 11.3 31c2.1 0 4-.5 5.7-1.5l8.4-4.8c3.3-1.7 5.6-5.2 5.6-9.1V1.3L29 .1zM17.9 26.2c-.9.9-1.6 1.4-2.6 1.9-.6.2-1.3.5-1.9.7-.6.1-1.2.2-1.8.2-.6 0-1.6-.1-2.2-.2-.6-.1-1.2-.3-1.7-.5s-1.1-.5-1.6-.9c-1.3-.9-1.9-1.7-2.5-2.5-.3-.5-.6-1-.9-1.6-.2-.6-.4-1.1-.5-1.7-.2-.7-.2-1.4-.2-2V7.1l8-4.7v13.1c0 5 3.7 9.1 8.4 10.1-.2.2-.3.4-.5.6zm11-9c-.1.5-.3 1-.5 1.5s-.6 1.2-1 1.7c-.6.7-1.2 1.2-2.7 2.1-1.3.7-2.4.9-3.1 1.1.5-1.2.5-2.5.5-3.9L22 6l7-3.7v13.3c0 .5 0 1.1-.1 1.6z"></path>
+          </g>
+        </svg>
+      </div>
+    </a>
+  </div>
+  <nav class="header__sidenav--navigation" role="navigation">
+    <ul>
+      <li>
+        <a id="ga-3556fb" title="Explore" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Pathfinder - Explore" data-cta-message="Explore" data-cta-type="link" data-cta-destination="self" data-cta-location="HomePage" href="pathfinder.html">Explore</a>
+      </li>
+      <li>
+        <a id="ga-4653fd" title="Nanodegree" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Nanodegree - Nanodegree" data-cta-message="Nanodegree" data-cta-type="link" data-cta-destination="self" data-cta-location="HomePage" href="nanodegree.html">Nanodegree</a>
+      </li>
+      <li>
+        <a id="ga-bb9190" title="Catalog" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Catalog - Catalog" data-cta-message="Catalog" data-cta-type="link" data-cta-destination="self" data-cta-location="HomePage" href="courses/all.html">Catalog</a>
+      </li>
+      <li>
+        <a id="ga-8841f9" title="For Business" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Business - For Business" data-cta-message="For Business" data-cta-type="link" data-cta-destination="self" data-cta-location="HomePage" href="business.html">For Business</a>
+      </li>
+      <li class="student" data-show-student="">
+        <a id="ga-2745e4" title="Blog" target="_blank" class="white" data-show-student="" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Blog - Blog" data-cta-message="Blog" data-cta-type="link" data-cta-destination="new_window" data-cta-location="HomePage" href="https://blog.udacity.com">Blog</a>
+      </li>
+      <li class="student" data-show-student="">
+        <a id="ga-f5bf57" title="My Classroom" data-show-student="" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Classroom - My Classroom" data-cta-message="My Classroom" data-cta-type="button" data-cta-destination="self" data-cta-location="HomePage" href="https://classroom.udacity.com/">My Classroom</a>
+      </li>
+      <li class="guest" data-show-guest="">
+        <a id="ga-24ca63" title="Sign In" data-show-guest="" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Classroom - Sign In" data-cta-message="Sign In" data-cta-type="button" data-cta-destination="self" data-cta-location="HomePage" href="https://auth.udacity.com/sign-in?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated">Sign In</a>
+      </li>
+      <li class="guest" data-show-guest="">
+        <a id="ga-025584" title="Get Started" class="turquoise" data-show-guest="" data-analytics-name="Navbar Link Clicked" data-analytics-category="Navbar Link" data-analytics-label="Navbar Link - Sign Up - Get Started" data-cta-message="Get Started" data-cta-type="link" data-cta-destination="self" data-cta-location="HomePage" href="https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated">Get Started</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<div id="contain-all" class=" slideout-panel">
+  <div class="banner featured" data-eyebrow="">
+    <p><a href="" data-remodal-target="join-udacity"><span class="underline">Join our list for the latest Udacity news and offers</span><span class="icon__arrow--blue"></span></a></p>
+    <a id="ga-6cb519" class="banner--close dark" href="leaderboard.html#"></a>
+  </div>
+  <header class="header">
+    <div class="header__navbar">
+    </div>
+  </header>
+  <section class="hero hero--inverse">
+  </section>
+  <section class="leaderboard-progress">
+    <div class="contain text-center">
+      <img alt="Android Basics Leaderboard" class="mb-2" src="https://d125fmws0bore1.cloudfront.net/assets/svgs/icon_trophy_leaderboard-3442a4b2312e6cdd02aa9870e636dc082890277a6267c4ed986a750fef7cbb35.svg">
+      <h2>오픈하우스 "모여봐요 동아리의 숲" 점수판</h2>
+      <p class="lead">행사관련 자세한 정보는 <a id="ga-6ef033" target="_blank" data-analytics-name="Link Clicked" data-analytics-category="Nanodegree CTA" data-analytics-label="Nanodegree CTA - AND" data-analytics-type="CTA" data-analytics-payload="{&quot;cta_type&quot;:&quot;link&quot;}" data-target="_blank" href="https://www.instagram.com/kuclubunion/">동아리연합회 인스타그램</a>
+        에서 확인 부탁드립니다.</p>
+      <p th:text="${message}"> 팔로우도 부탁드려요 ~ </p>
+
+    </div>
+  </section>
+  <section class="ranking">
+    <div class="contain">
+      <div class="ranking-table">
+        <div class="ranking-table-header-row">
+          <div class="ranking-table-header-data h6">Rank</div>
+          <div class="ranking-table-header-data h6">Name</div>
+          <div class="ranking-table-header-data h6">Score</div>
+        </div>
+
+        <div class="ranking-table-row-leader-1">
+          <div class="ranking-table-data-leader-1">
+            <div class="medal-gold"></div>
+          </div>
+          <div class="ranking-table-data" th:text="${clubRank1.name}">
+            Steven A
+          </div>
+          <div class="ranking-table-data">
+            <div th:text="${clubRank1.score}"></div>
+          </div>
+        </div>
+
+        <div class="ranking-table-row-leader-2">
+          <div class="ranking-table-data-leader-2">
+            <div class="medal-silver"></div>
+          </div>
+          <div class="ranking-table-data"th:text="${clubRank2.name}">
+            Raghav M
+          </div>
+          <div class="ranking-table-data">
+            <div th:text="${clubRank2.score}"></div>
+          </div>
+        </div>
+
+        <div class="ranking-table-row-leader-3">
+          <div class="ranking-table-data-leader-3">
+            <div class="medal-bronze"></div>
+          </div>
+          <div class="ranking-table-data" th:text="${clubRank3.name}">
+            Ryan Z
+          </div>
+          <div class="ranking-table-data">
+            <div th:text="${clubRank3.score}"></div>
+          </div>
+        </div>
+
+        <div class="ranking-table-body">
+          <div th:each="user, iterStat : ${clubsUnder4}">
+            <div class="ranking-table-row">
+              <div class="ranking-table-data" th:text="${iterStat.count + 3}"></div>
+              <div class="ranking-table-data" th:text="${user.name}"></div>
+              <div class="ranking-table-data">
+                <div th:text="${user.score}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!--Use Date Formatter-->
+  </section>
+
+
+  <footer class="footer">
+    <img th:src="@{/waveFooter.jpg}" alt="Logo" />
+
+  </footer>
+
+
+</div>
+
+
+<div class="remodal-overlay remodal-is-closed" style="display: none;"></div><div class="remodal-wrapper remodal-is-closed" style="display: none;"><div class="remodal geo-redirect-modal remodal-is-initialized remodal-is-closed" data-remodal-id="geo-redirect" tabindex="-1">
+  <div data-remodal-action="close" class="remodal-close"></div>
+  <img src="https://d125fmws0bore1.cloudfront.net/assets/svgs/icon-globe-e82eae5d45465aba4fbe4bb746905ce55dc3324f310b79c60e4a20089057d347.svg" alt="Icon globe e82eae5d45465aba4fbe4bb746905ce55dc3324f310b79c60e4a20089057d347">
+  <h3><span data-country="CN">Udacity &#29616;&#24050;&#25552;&#20379;&#20013;&#25991;&#29256;&#26412;&#65281;</span><span data-country="BR">A Udacity tem uma p�gina em portugu�s para voc�!</span><span data-country="IN">There's a local version of Udacity for you!</span></h3>
+  <div class="save-preference">
+    <label for="saveRedirectPreference">
+      <input type="checkbox" id="saveRedirectPreference">
+      <span data-country="CN">&#23558;&#27492;&#35774;&#32622;&#20026; Udacity &#40664;&#35748;&#20027;&#39029;</span>
+      <span data-country="BR">Tornar esta a p�gina padr�o da Udacity</span>
+      <span data-country="IN">Always make this my Udacity homepage</span>
+    </label>
+  </div>
+  <a href="leaderboard.html#" class="button button--primary mb-1" id="localLink"><span data-country="CN">&#21069;&#24448;&#20248;&#36798;&#23398;&#22478;&#20013;&#25991;&#32593;&#31449;</span><span data-country="BR">Ir para a p�gina brasileira</span><span data-country="IN">Go to Indian Site</span></a>
+  <a href="leaderboard.html#" data-remodal-action="close" id="globalLink" class="text-only">
+    or continue to Global Site</a>
+</div></div><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="https://vars.hotjar.com/rcj-99d43ead6bdf30da8ed5ffcb4f17100c.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe>
+
+
+</body></html>

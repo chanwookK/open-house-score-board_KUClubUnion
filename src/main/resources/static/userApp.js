@@ -1,8 +1,8 @@
 
 var stompClient = null;
 
-
 //소켓 연결했을 때의 상태를 정의하는 함수.
+
 function setConnected(connected) {
 
     var connectionStatusElement = document.getElementById("connection-status");
@@ -13,6 +13,7 @@ function setConnected(connected) {
         connectionStatusElement.textContent = "연결 상태: 연결 안 됨";
 
 }
+
 
 
 // /topic/ 으로 정보를 받았을 때 처리하는 함수.
@@ -31,7 +32,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
 
         //연결 후의 상태로 전환
-        setConnected(true);
+        //setConnected(true);
         console.log('Connected: ' + frame);
 
         // Stomp 를 이용하여 /topic/ 주소 구독.
@@ -40,6 +41,7 @@ function connect() {
 
             // WebSocketBroadCast Controller의 broadCast의 반환값을 인자로 받음.
             // topic으로 메시지가 왔을때의 행동을 작성
+
             refresh();
         });
 

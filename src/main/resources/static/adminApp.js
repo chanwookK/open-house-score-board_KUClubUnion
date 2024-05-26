@@ -33,10 +33,10 @@ function connect() {
         console.log('Connected: ' + frame);
 
     });
+
 }
 
 // /app/broad-cast로 정보 전달하는 함수. -> WebSocketBroadCastController
 function sendBroadCast() {
     stompClient.send("/app/broad-cast", {});
 }
-

@@ -2,6 +2,7 @@ package openhouse.score.repository.club;
 
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import openhouse.score.domain.club.Club;
@@ -20,7 +21,16 @@ public class ClubDataBaseRepository implements ClubRepository {
 
     @Override
     public Club findById(Long id) {
-        return entityManager.find(Club.class, id);
+
+        try{
+
+            return entityManager.find(Club.class, id);
+
+        }catch (NoResultException e){
+
+            return null;
+        }
+
     }
 
     @Override
@@ -31,8 +41,14 @@ public class ClubDataBaseRepository implements ClubRepository {
     @Override
     public Club findByName(String name) {
 
-        Club club = entityManager.createQuery("SELECT c FROM Club c WHERE c.name=:name", Club.class).setParameter("name", name).getSingleResult();
+        Club club;
 
+        try {
+            club = entityManager.createQuery("SELECT c FROM Club c WHERE c.name=:name", Club.class).setParameter("name", name).getSingleResult();
+
+        }catch (NoResultException e){
+            return null;
+        }
         return club;
     }
 

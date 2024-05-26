@@ -26,22 +26,29 @@ public class Club implements Comparable<Club>{
 
     public void plus(){
         this.score += 2;
-        this.visitors++;
     }
 
     public void minus(){
         if(this.score == 0){
-            ++this.visitors;
             return;
         }
         --this.score;
-        ++this.visitors;
+    }
+
+    public void visitorUp(){
+        this.visitors++;
+    }
+
+
+    public void visitorDown(){
+        this.visitors--;
     }
 
     public Club(String name, String password) {
         this.name = name;
         this.password = password;
     }
+
 
     @Override
     public int compareTo(Club o) {
