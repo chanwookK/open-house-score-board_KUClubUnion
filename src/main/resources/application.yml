@@ -13,4 +13,4 @@ spring:
 logging:
   level:
     root: info # 로그 레벨 설정
-    org.hibernate.SQL: debug # Hibernate SQL 로깅 활성화
+   # org.hibernate.SQL: debug # Hibernate SQL 로깅 활성화

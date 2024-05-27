@@ -69,4 +69,6 @@ public class MasterController {
 
         return "redirect:/master/score-board";
     }
+
+
 }
