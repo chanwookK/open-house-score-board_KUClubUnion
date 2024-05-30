@@ -1,14 +1,16 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test # H2 메모리 데이터베이스를 사용하도록 설정
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://opendhousedb.czwu68c0443c.us-east-2.rds.amazonaws.com:3306/opendhousedb?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: kan0202
+    password: sky2002369
 
   jpa:
     hibernate:
       ddl-auto: create # Hibernate에게 데이터베이스 스키마를 자동으로 업데이트하도록 지시
-    database-platform: org.hibernate.dialect.H2Dialect # H2 데이터베이스용 Hibernate 디아렉트 설정
+    properties:
+      hibernate.format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
 logging:
   level:
