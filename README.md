@@ -42,7 +42,7 @@ Web
 
 
 ### 🛠 Project Architecture
-
+![제목 없는 다이어그램 drawio](https://github.com/user-attachments/assets/2bf0a497-22ea-4413-8bf7-93b64e688c7a)
 
 ### 📜 Server Domain(현재는 사용할 수 없음)
 - Front: https://alt-web.run.goorm.io
