@@ -30,9 +30,14 @@ Web
 
 프레임워크 및 라이브러리<br>
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/JPA-6DB33F?style=flat-square&logo=hibernate&logoColor=white"/> <img src="https://img.shields.io/badge/SpringDataJPA-6DB33F?style=flat-square&logo=spring&logoColor=white"/> 
+<img src="https://img.shields.io/badge/WebSocket-000000?style=flat-square&logo=WebSocket&logoColor=white" alt="WebSocket"/>
 
-프로그래밍 언어<br>
-<img src="https://img.shields.io/badge/java-FF81F9?style=flat-square"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1C?style=flat-square&logo=JavaScript&logoColor=black"/> 
+템플릿 엔진<br>
+<img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=Thymeleaf&logoColor=white" alt="Thymeleaf"/>
+
+프로그래밍 언어 및 마크업 언어<br>
+<img src="https://img.shields.io/badge/java-FF81F9?style=flat-square"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1C?style=flat-square&logo=JavaScript&logoColor=black"/> <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white" alt="HTML"/>
+<img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white" alt="CSS"/>
 
 데이터베이스 및 클라우드<br>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat-square&logo=AmazonEC2&logoColor=white"/> <img src="https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonRDS&logoColor=white"/> <img src="https://img.shields.io/badge/Ubuntu-E95420?style=flat-square&logo=Ubuntu&logoColor=white"/>
@@ -44,10 +49,6 @@ Web
 ### 🛠 Project Architecture
 ![제목 없는 다이어그램 drawio](https://github.com/user-attachments/assets/2bf0a497-22ea-4413-8bf7-93b64e688c7a)
 
-### 📜 Server Domain(현재는 사용할 수 없음)
-- Front: https://alt-web.run.goorm.io
-- Back(Fast-API): https://brave-ariela-davidlee-c2a7ce37.koyeb.app
-- Back(Spring): https://alt-backend.com
 
 ### 📜 ERD Table
 
