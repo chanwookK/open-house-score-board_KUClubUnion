@@ -1,6 +1,7 @@
+# 🔍 기본 정보
+
 ![image](https://github.com/user-attachments/assets/1c6c554e-84d2-423f-8c75-43cc93d38a0a)
 
-#🔍 기본 정보
 
 ### 🚀 프로젝트 개요
 2024 오픈하우스 "놀러오세요 동아리의 숲" 을 위한 실시간 점수 공개 및 계산 웹 사이트 개발 프로젝트
@@ -34,7 +35,8 @@ Web
 
 프레임워크 및 라이브러리<br>
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/JPA-6DB33F?style=flat-square&logo=hibernate&logoColor=white"/> <img src="https://img.shields.io/badge/SpringDataJPA-6DB33F?style=flat-square&logo=spring&logoColor=white"/> 
-<img src="https://img.shields.io/badge/WebSocket-000000?style=flat-square&logo=WebSocket&logoColor=white" alt="WebSocket"/>
+<img src="https://img.shields.io/badge/WebSocket-000000?style=flat-square&logo=WebSocket&logoColor=white" alt="WebSocket"/> <img src="https://img.shields.io/badge/Redis-D82C20?style=flat-square&logo=Redis&logoColor=white" alt="Redis Cache"/>
+
 
 템플릿 엔진<br>
 <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=Thymeleaf&logoColor=white" alt="Thymeleaf"/>
